@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<header style="background: white; padding: 10px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000;">
-    <img src="logo.png" alt="Logo" style="height: 55px; width: auto; display: block;" onerror="this.style.display='none'">
-    
-    <div style="text-align: left;">
-        <h1 style="font-size: 1.2rem; margin: 0; color: #0056b3; line-height: 1.2; font-family: sans-serif;">
-            Fosforilando<br>
-            <span style="font-size: 0.8rem; color: #666; font-weight: normal;">NeuroApp</span>
-        </h1>
-    </div>
-</header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fosforilando Neuro</title>
+    <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0056b3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('App pronto para uso offline!'))
+        .catch((err) => console.log('Erro no Service Worker:', err));
+    });
+  }
+</script>
+</head>
 <body>
 
     <header class="main-header">
@@ -408,6 +418,3 @@
 
 </body>
 </html>
-
-
-
