@@ -1,29 +1,31 @@
-const CACHE_NAME = 'neurocalc-v1';
+/* ARQUIVO: sw.js */
+
+// Mudei para v2 para forçar seu celular a atualizar o cache antigo
+const CACHE_NAME = 'neurocalc-v2';
+
+// Aqui só colocamos o que TEM CERTEZA que existe.
+// Se faltar um arquivo aqui, o app não instala.
 const ASSETS = [
   './',
   './index.html',
   './style.css',
-  './calculadoras/asrs18.js',
-  './calculadoras/cdr.js',
-  './calculadoras/chads.js',
-  './calculadoras/corticoides.js',
-  './calculadoras/funcao_renal.js',
-  './calculadoras/hasbled.js',
-  './calculadoras/hipernatremia.js',
-  './calculadoras/hiponatremia.js',
-  './calculadoras/relogio.js',
-  './calculadoras/sodio.js', // (Se ainda estiver usando)
-  './calculadoras/meen.js',  // (Se tiver)
-  './calculadoras/nihss.js'  // (Se tiver)
-  // Adicione aqui outros arquivos se criar (ex: dva.js)
+  './manifest.json'
+  // Removi os .js individuais para evitar erros de arquivo não encontrado.
+  // O navegador vai fazer cache deles automaticamente quando você usar.
 ];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        return cache.addAll(ASSETS);
+      })
+      .then(() => self.skipWaiting()) // Força o SW a ativar imediatamente
   );
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil(self.clients.claim()); // Controla a página imediatamente
 });
 
 self.addEventListener('fetch', (e) => {
