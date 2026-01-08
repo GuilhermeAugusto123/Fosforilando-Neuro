@@ -1,18 +1,18 @@
 {
   "name": "Fosforilando Neuro",
-  "short_name": "NeuroApp",
+  "short_name": "NeuroPraxis",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0056b3",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
+      "src": "./logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
+      "src": "./logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
