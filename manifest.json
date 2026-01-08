@@ -1,6 +1,6 @@
 {
-  "name": "NeuroCalc",
-  "short_name": "NeuroCalc",
+  "name": "Fosforilando Neuro",
+  "short_name": "NeuroApp",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
