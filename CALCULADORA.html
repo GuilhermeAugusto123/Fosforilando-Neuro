@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fosforilando Neuro</title>
+    <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0056b3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('App pronto para uso offline!'))
+        .catch((err) => console.log('Erro no Service Worker:', err));
+    });
+  }
+</script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <img src="img/logo_fosforilando.png" alt="Logo Fosforilando Neuro" class="main-logo">
+            <div class="header-text">
+                <h1>Fosforilando Neuro</h1>
+                <p>por Guilherme Augusto</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-principal">
+        
+        <div class="titulo-pagina">
+            <h2>Escalas Neurológicas</h2>
+            <p>Selecione uma escala abaixo para começar a avaliação.</p>
+        </div>
+
+        <div class="categoria-container">
+            <h2 class="categoria-titulo">Neurovascular e Emergência</h2>
+            <nav class="menu-grid">
+                <ul>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('glasgow')">
+                            <strong>Escala de Coma de Glasgow</strong>
+                            <p>Avaliação objetiva do nível de consciência.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('nihss')">
+                            <strong>Escala de NIHSS</strong>
+                            <p>Avaliação quantitativa do déficit neurológico no AVC.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('abcd2')">
+                            <strong>Escala ABCD²</strong>
+                            <p>Risco de AVC após Ataque Isquêmico Transitório (AIT).</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('mrs')">
+                            <strong>Escala de Rankin Modificada (mRS)</strong>
+                            <p>Avaliação funcional e de incapacidade pós-AVC.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('aspects')">
+                            <strong>Escala ASPECTS</strong>
+                            <p>Avaliação tomográfica de sinais precoces de isquemia.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('ascod')">
+                            <strong>Classificação ASCOD</strong>
+                            <p>Classificação fenotípica da etiologia do AVC.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('rope_pascal')">
+                            <strong>RoPE & PASCAL</strong>
+                            <p>Probabilidade de AVC criptogênico relacionado a FOP.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('rcvs2')">
+                            <strong>Escore RCVS₂</strong>
+                            <p>Diagnóstico de Vasoconstrição Cerebral Reversível.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('ich_score')">
+                            <strong>ICH Score</strong>
+                            <p>Estratificação de risco na Hemorragia Intracerebral.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('hsa_workflow')">
+                            <strong>Workflow HSA</strong>
+                            <p>Calcular WFNS, mFisher e VASOGRADE.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('marshall')">
+                            <strong>Escala de Marshall</strong>
+                            <p>Classificação tomográfica do Traumatismo Craniano (TCE).</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+ <div class="categoria-container">
+            <h2 class="categoria-titulo">Cognição e Comportamento</h2>
+            <nav class="menu-grid">
+                <ul>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('moca')">
+                            <strong>MoCA (Montreal Cognitive)</strong>
+                            <p>Folha de pontuação para o Montreal Cognitive Assessment.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('meen')">
+                            <strong>MEEN / MMSE</strong>
+                            <p>Ferramenta de aplicação do Miniexame do Estado Mental.</p>
+                        </a>
+                    </li>
+<li>
+    <a href="#" onclick="carregarCalculadora('relogio')">
+        <strong>Teste do Relógio</strong>
+        <p>Pontuação estruturada (15 pontos) - Contorno, Números, Ponteiros e Centro.</p>
+    </a>
+</li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('pfeffer')">
+                            <strong>Pfeffer (FAQ)</strong>
+                            <p>Questionário de Atividades Funcionais (AIVDs).</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('katz')">
+                            <strong>Índice de Katz (AVDs)</strong>
+                            <p>Avaliação de Atividades Básicas de Vida Diária (AVDs).</p>
+                        </a>
+                    </li>
+<li>
+    <a href="#" onclick="carregarCalculadora('cdr')">
+        <strong>CDR (Estadiamento)</strong>
+        <p>Avaliação Clínica da Demência e Sum of Boxes (SOB).</p>
+    </a>
+</li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('gds15')">
+                            <strong>GDS-15</strong>
+                            <p>Escala de Depressão Geriátrica (15 itens).</p>
+                        </a>
+                    </li>
+<li>
+    <a href="#" onclick="carregarCalculadora('phq9')">
+        <strong>PHQ-9 (Depressão)</strong>
+        <p>Rastreio e classificação de gravidade da Depressão.</p>
+    </a>
+</li>
+<li>
+    <a href="#" onclick="carregarCalculadora('gad7')">
+        <strong>GAD-7 (Ansiedade)</strong>
+        <p>Rastreio para Transtorno de Ansiedade Generalizada.</p>
+    </a>
+</li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('hachinski')">
+                            <strong>Escore de Hachinski</strong>
+                            <p>Escore Isquêmico para diferenciar demências (Vascular vs Degenerativa).</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="categoria-container">
+            <h2 class="categoria-titulo">Distúrbios do Sono</h2>
+            <nav class="menu-grid">
+                <ul>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('epworth')">
+                            <strong>Sonolência de Epworth</strong>
+                            <p>Avaliação da sonolência diurna excessiva (SED).</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('stopbang')">
+                            <strong>STOP-BANG</strong>
+                            <p>Triagem para Síndrome da Apneia Obstrutiva do Sono (SAHOS).</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('berlim')">
+                            <strong>Questionário de Berlim</strong>
+                            <p>Triagem de alto risco para Síndrome da Apneia Obstrutiva do Sono.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('pittsburgh')">
+                            <strong>Pittsburgh (PSQI)</strong>
+                            <p>Índice de Qualidade do Sono de Pittsburgh.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('isi')">
+                            <strong>Índice de Insônia (ISI)</strong>
+                            <p>Avaliação da gravidade da insônia (Screening e Follow-up).</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('imc')">
+                            <strong>Calculadora de IMC</strong>
+                            <p>Índice de Massa Corporal (Peso/Altura²).</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+       
+        <div class="categoria-container">
+            <h2 class="categoria-titulo">Neuromuscular e Neurogenética</h2>
+            <nav class="menu-grid">
+                <ul>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('mgfa')">
+                            <strong>Classificação MGFA</strong>
+                            <p>Classificação da gravidade da Miastenia Gravis.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('mg_composite')">
+                            <strong>MG Composite</strong>
+                            <p>Escore quantitativo para monitoramento da Miastenia Gravis.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('mg_adl')">
+                            <strong>MG-ADL</strong>
+                            <p>Avaliação de Atividades de Vida Diária na Miastenia Gravis.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('sara')">
+                            <strong>Escala SARA</strong>
+                            <p>Avaliação e Classificação de Ataxia (SARA).</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('sprs')">
+                            <strong>SPRS (Paraparesia Espástica)</strong>
+                            <p>Escala de Avaliação da Paraparesia Espástica Hereditária.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('alsfrs')">
+                            <strong>ALSFRS-R</strong>
+                            <p>Escala Funcional de Classificação da ELA - Revisada.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('hughes')">
+                            <strong>Escore de Hughes (GBS)</strong>
+                            <p>Escala de incapacidade da Síndrome de Guillain-Barré.</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+ <div class="categoria-container">
+            <h2 class="categoria-titulo">Neuroimunologia</h2>
+            <nav class="menu-grid">
+                <ul>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('edss')">
+                            <strong>Calculadora EDSS</strong>
+                            <p>Calcula o escore baseado na Deambulação e Sistemas Funcionais.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('pns_score')">
+                            <strong>PNS-Care Score</strong>
+                            <p>Escore diagnóstico para Síndrome Neurológica Paraneoplásica.</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="categoria-container">
+            <h2 class="categoria-titulo">Cefaleia e Dor</h2>
+            <nav class="menu-grid">
+                <ul>    
+                    <li>
+                        <a href="#" onclick="carregarCalculadora('lanss')">
+                            <strong>Escala LANSS</strong>
+                            <p>Rastreio de dor neuropática (Sintomas + Exame Físico).</p>
+                        </a>
+                    </li>
+<li>
+    <a href="#" onclick="carregarCalculadora('csi')">
+        <strong>Escala CSI</strong>
+        <p>Inventário de Sensibilização Central (Fibromialgia e outros).</p>
+    </a>
+</li>
+                </ul>
+            </nav>
+        </div>
+
+<div class="categoria-container">
+    <h2 class="categoria-titulo">Clínica Médica e Suporte</h2>
+    <nav class="menu-grid">
+        <ul>    
+            <li>
+                <a href="#" onclick="carregarCalculadora('chads')">
+                    <strong>CHA₂DS₂-VA (FA)</strong>
+                    <p>Risco de AVC em Fibrilação Atrial (atualizada).</p>
+                </a>
+            </li>
+<li>
+    <a href="#" onclick="carregarCalculadora('hasbled')">
+        <strong>HAS-BLED</strong>
+        <p>Risco de sangramento na anticoagulação.</p>
+    </a>
+</li>
+<li>
+    <a href="#" onclick="carregarCalculadora('funcao_renal')">
+        <strong>Função Renal</strong>
+        <p>Calculadoras Cockcroft-Gault (Dose) e CKD-EPI (Estadiamento).</p>
+    </a>
+</li>
+<li>
+    <a href="#" onclick="carregarCalculadora('hipernatremia')">
+        <strong>Hipernatremia</strong>
+        <p>Correção de Sódio alto (Água livre).</p>
+    </a>
+</li> 
+<li>
+    <a href="#" onclick="carregarCalculadora('hiponatremia')">
+        <strong>Hiponatremia</strong>
+        <p>Cálculo de NaCl 3% e Prescrição de Bomba.</p>
+    </a>
+</li>
+<li>
+    <a href="#" onclick="carregarCalculadora('corticoides')">
+        <strong>Conversor de Corticoides</strong>
+        <p>Equivalência de dose e potência mineralocorticoide.</p>
+    </a>
+</li>
+
+                       </ul>
+    </nav>
+</div>
+
+       
+
+    </div> <main id="conteudo-calculadora">
+    </main>
+    
+    <footer>
+        <p>Desenvolvido por Guilherme Augusto de Oliveira Soares</p>
+    </footer>
+
+    <script src="app.js"></script>
+    
+    <script src="calculadoras/glasgow.js"></script>
+    <script src="calculadoras/nihss.js"></script>
+<script src="calculadoras/corticoides.js"></script>
+    <script src="calculadoras/abcd2.js"></script>
+    <script src="calculadoras/mrs.js"></script>
+    <script src="calculadoras/aspects.js"></script>
+    <script src="calculadoras/ascod.js"></script>
+    <script src="calculadoras/rope_pascal.js"></script>
+    <script src="calculadoras/rcvs2.js"></script>
+    <script src="calculadoras/ich_score.js"></script>
+    <script src="calculadoras/hsa_workflow.js"></script>
+    <script src="calculadoras/marshall.js"></script>
+<script src="calculadoras/csi.js"></script>
+    <script src="calculadoras/epworth.js"></script>
+    <script src="calculadoras/stopbang.js"></script>
+    <script src="calculadoras/berlim.js"></script>
+    <script src="calculadoras/pittsburgh.js"></script>
+    <script src="calculadoras/isi.js"></script>
+    <script src="calculadoras/imc.js"></script>
+<script src="calculadoras/gad7.js"></script>
+    <script src="calculadoras/edss.js"></script>
+    <script src="calculadoras/pns_score.js"></script>
+<script src="calculadoras/phq9.js"></script>
+    <script src="calculadoras/mgfa.js"></script>
+    <script src="calculadoras/mg_composite.js"></script>
+    <script src="calculadoras/mg_adl.js"></script>
+    <script src="calculadoras/sara.js"></script>
+    <script src="calculadoras/sprs.js"></script>
+    <script src="calculadoras/alsfrs.js"></script>
+    <script src="calculadoras/hughes.js"></script>
+    <script src="calculadoras/lanss.js"></script>
+<script src="calculadoras/cdr.js"></script>
+    <script src="calculadoras/moca.js"></script>
+    <script src="calculadoras/meen.js"></script>
+    <script src="calculadoras/pfeffer.js"></script>
+    <script src="calculadoras/katz.js"></script>
+    <script src="calculadoras/gds15.js"></script>
+    <script src="calculadoras/hachinski.js"></script>
+<script src="calculadoras/relogio.js"></script>
+<script src="calculadoras/chads.js"></script>
+<script src="calculadoras/hasbled.js"></script>
+<script src="calculadoras/funcao_renal.js"></script>
+<script src="calculadoras/hipernatremia.js"></script>
+<script src="calculadoras/hiponatremia.js"></script>
+
+</body>
+</html>

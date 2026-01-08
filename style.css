@@ -1,0 +1,701 @@
+/* =======================================
+   ESTILOS GERAIS
+   ======================================= */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f7f6; /* Fundo cinza bem claro */
+    color: #333;
+}
+
+/* Container para centralizar o conteúdo */
+.container-principal {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =======================================
+   CABEÇALHO (v3.1 - Suas personalizações)
+   (REMOVIDA A REGRA 'header' ANTIGA E CONFLITANTE)
+   ======================================= */
+header.main-header {
+    background-color: #ffffff;
+    color: #333;
+    padding: 0px 0px; /* <-- Sua personalização */
+    border-bottom: 2px solid #005a9c;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+/* O container do conteúdo do cabeçalho */
+header.main-header .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1px; /* <-- Sua personalização */
+}
+
+/* A sua logo (com 100px e sem borda redonda) */
+header.main-header .main-logo {
+    width: 100px; /* <-- Sua personalização */
+    height: auto; 
+    border-radius: 0; 
+    object-fit: contain; 
+    border: none;
+    flex-shrink: 0;
+}
+
+/* O texto ao lado da logo */
+header.main-header .header-text {
+    text-align: left;
+}
+
+header.main-header .header-text h1 {
+    margin: 0;
+    font-size: 2em;
+    font-weight: 700;
+    color: #005a9c;
+}
+
+header.main-header .header-text p {
+    margin: 2px 0 0;
+    font-size: 1.1em;
+    color: #555;
+    opacity: 1;
+}
+
+/* Responsividade (Em tela pequena, voltamos a centralizar) */
+@media (max-width: 600px) {
+    header.main-header .header-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    header.main-header .main-logo {
+        margin-bottom: 10px;
+        width: 100px;
+        height: auto;
+    }
+}
+
+/* =======================================
+   TÍTULO DA PÁGINA (Abaixo do cabeçalho)
+   ======================================= */
+.titulo-pagina {
+    padding: 5px 0 20px 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    text-align: center; /* Centraliza o título da página */
+}
+
+.titulo-pagina h2 {
+    margin: 0 0 5px 0;
+    font-size: 2em;
+    color: #005a9c; /* Azul escuro */
+}
+
+.titulo-pagina p {
+    margin: 0;
+    font-size: 1.1em;
+    color: #667;
+}
+
+/* =======================================
+   MENU DE CARDS (MODIFICADO PARA .menu-grid)
+   ======================================= */
+.menu-grid ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile-first: 1 coluna */
+    gap: 20px; /* Espaçamento entre os cards */
+}
+
+/* 2 colunas para telas médias (tablets) */
+@media (min-width: 600px) {
+    .menu-grid ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 3 colunas para telas largas (desktop) */
+@media (min-width: 900px) {
+    .menu-grid ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.menu-grid li {
+    /* O LI é apenas um container para o link */
+}
+
+/* O CARD EM SI (é o link <a>) */
+.menu-grid li a {
+    display: block;
+    background-color: #ffffff; 
+    border: 1px solid #e0e7f0; 
+    border-radius: 8px; 
+    padding: 20px; 
+    text-decoration: none;
+    height: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    transition: all 0.2s ease-in-out; 
+    
+    position: relative; 
+    padding-left: 28px; 
+    overflow: hidden; 
+}
+
+/* A BARRA LATERAL AZUL */
+.menu-grid li a::before {
+    content: ''; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px; 
+    height: 100%;
+    background-color: #005a9c; 
+    border-top-left-radius: 8px; 
+    border-bottom-left-radius: 8px; 
+}
+
+/* Efeito HOVER */
+.menu-grid li a:hover {
+    background-color: #f7faff; 
+    transform: translateY(-4px); 
+    box-shadow: 0 4px 12px rgba(0, 90, 156, 0.1); 
+}
+
+/* Título do Card */
+.menu-grid li a strong {
+    font-size: 1.2em;
+    color: #005a9c; 
+    display: block; 
+    margin-bottom: 8px;
+}
+
+/* Descrição do Card */
+.menu-grid li a p {
+    font-size: 0.9em;
+    color: #555; 
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* =======================================
+   ESTILOS DAS CATEGORIAS (v3.2)
+   ======================================= */
+.categoria-container {
+    margin-bottom: 40px; /* Espaço entre as categorias */
+}
+
+.categoria-titulo {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #005a9c; /* Azul escuro */
+    border-bottom: 2px solid #e0e7f0;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+/* =======================================
+   ÁREA DE CONTEÚDO (Onde a calculadora aparece)
+   ======================================= */
+main#conteudo-calculadora {
+    padding: 30px 0;
+}
+
+/* Estilos para a calculadora */
+.calculadora-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.calculadora-container h3 {
+    margin-top: 0;
+    color: #005a9c;
+    border-bottom: 2px solid #f0f8ff;
+    padding-bottom: 10px;
+}
+
+.grupo-pergunta { margin-bottom: 15px; }
+.grupo-pergunta label { display: block; font-weight: 600; margin-bottom: 8px; }
+select, input[type="number"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+button { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 5px; font-size: 1em; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
+button:hover { background-color: #0056b3; }
+.resultado-box { margin-top: 20px; padding: 15px; background-color: #e6f3ff; border: 1px solid #b3d7ff; border-radius: 5px; font-size: 1.1em; font-weight: bold; text-align: center; }
+
+/* =======================================
+   ESTILOS DA CALCULADORA (v2.0 - Layout 2 colunas)
+   ======================================= */
+
+/* Botão de Voltar */
+.botao-voltar {
+    background-color: #6c757d; /* Cinza */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.botao-voltar:hover {
+    background-color: #5a6268;
+}
+
+/* O container principal da calculadora (layout flex) */
+.calculadora-layout {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 30px; 
+}
+
+/* Coluna da Esquerda (Perguntas) */
+.perguntas-coluna {
+    flex: 2; 
+    min-width: 300px; 
+}
+
+/* Coluna da Direita (Resultados) */
+.resultado-coluna {
+    flex: 1; 
+    min-width: 280px; 
+}
+
+/* O Card de Resultado Fixo (Sticky) */
+.resultado-box-fixo {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 20px; 
+    
+    background-color: #fff;
+    border: 1px solid #e0e7f0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 90, 156, 0.1);
+    text-align: center;
+}
+
+.resultado-box-fixo h3 {
+    margin-top: 0;
+    color: #005a9c;
+}
+
+/* O placar grande */
+.resultado-box-fixo .placar-numero {
+    font-size: 5em; 
+    font-weight: 700;
+    color: #005a9c;
+    margin: 10px 0;
+}
+
+/* O placar detalhado (O4 V5 M6) */
+.resultado-box-fixo .placar-detalhe {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* A classificação final */
+.resultado-box-fixo .placar-classificacao {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Estilo para os GRUPOS de "Radio buttons" (bolinhas) */
+.grupo-radio {
+    background-color: #fff;
+    border: 1px solid #e0e7f0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    
+    position: relative;
+    overflow: hidden;
+}
+
+.grupo-radio h4 {
+    margin: 0;
+    padding: 15px 20px;
+    background-color: #f7faff; 
+    color: #005a9c;
+    border-bottom: 1px solid #e0e7f0;
+}
+
+/* A barra lateral azul */
+.grupo-radio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #005a9c;
+}
+
+/* Estilo de cada opção "bolinha" */
+.grupo-radio .opcao-radio {
+    display: block; 
+    padding: 12px 20px 12px 50px; 
+    position: relative;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+.grupo-radio .opcao-radio:last-child {
+    border-bottom: none;
+}
+.grupo-radio .opcao-radio:hover {
+    background-color: #f7faff;
+}
+.grupo-radio .opcao-radio label {
+    cursor: pointer;
+    color: #333;
+}
+.grupo-radio .opcao-radio input {
+    position: absolute;
+    opacity: 0; 
+    cursor: pointer;
+}
+
+/* Cria uma "bolinha" customizada */
+.grupo-radio .opcao-radio .checkmark {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+}
+.grupo-radio .opcao-radio:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+.grupo-radio .opcao-radio input:checked ~ .checkmark {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.grupo-radio .opcao-radio .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+.grupo-radio .opcao-radio input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* =======================================
+   ADICIONAIS DO NIHSS (v2.3)
+   ======================================= */
+.aviso-instrucao {
+    background-color: #f0f8ff; 
+    border: 1px solid #b3d7ff;
+    border-left: 5px solid #005a9c; 
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+.aviso-instrucao h5 {
+    margin: 0 0 10px 0;
+    color: #005a9c; 
+    font-size: 1.1em;
+}
+.aviso-instrucao ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.aviso-instrucao ul li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 5px;
+}
+.aviso-instrucao ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 1px;
+    color: #005a9c;
+    font-weight: bold;
+}
+.sub-instrucao-titulo {
+    display: block;
+    font-size: 0.8em;
+    font-weight: 400;
+    font-style: italic;
+    color: #555;
+    margin-top: 4px;
+}
+.sub-instrucao-opcao {
+    display: block;
+    font-size: 0.85em;
+    color: #667;
+    font-style: italic;
+    margin-top: 4px; 
+}
+
+/* =======================================
+   ESTILOS DO ASPECTS (v2.4)
+   ======================================= */
+.imagem-guia-aspects {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+.toggle-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+    margin-bottom: 25px; 
+}
+.toggle-container input[type="checkbox"] {
+    display: none;
+}
+.toggle-container label {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: 600;
+    color: #005a9c; 
+    background-color: #f0f8ff; 
+    border: 1px solid #b3d7ff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.toggle-container input[type="checkbox"]:checked + label {
+    background-color: #d90429; 
+    color: white;
+    border-color: #b3001e;
+}
+#aspects-placar-detalhe {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #d90429; 
+}
+#aspects-placar-detalhe.nenhuma {
+    color: #008000; 
+}
+
+/* O rodapé */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: #f8f8f8;
+    color: #555;
+    font-size: 0.9em;
+    border-top: 1px solid #eee;
+}
+/* =======================================
+   ESTILOS DAS ABAS (v3.3)
+   ======================================= */
+
+.calc-tabs {
+    display: flex;
+    border-bottom: 2px solid #005a9c; /* Linha azul principal */
+    margin-bottom: 0;
+}
+
+.calc-tab-btn {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #f0f8ff; /* Fundo do botão inativo (azul claro) */
+    border: none;
+    border-radius: 5px 5px 0 0; /* Arredonda cantos superiores */
+    font-size: 1em;
+    font-weight: 600;
+    color: #005a9c; /* Cor do texto (azul) */
+    opacity: 0.7; /* Levemente apagado */
+    margin-right: 5px;
+    margin-bottom: -2px; /* Puxa o botão para "dentro" da borda */
+    border: 2px solid transparent;
+}
+
+.calc-tab-btn.active {
+    background-color: #ffffff; /* Fundo branco */
+    color: #005a9c;
+    opacity: 1;
+    border: 2px solid #005a9c; /* Borda azul */
+    border-bottom: 2px solid #ffffff; /* Cobre a borda principal */
+}
+
+/* O conteúdo da aba */
+.calc-tab-pane {
+    /* O JS vai controlar o display: block/none */
+}
+
+/* Ajuste para a primeira caixa de grupo dentro da aba */
+.calc-tab-pane .grupo-radio:first-child,
+.calc-tab-pane .aviso-instrucao:first-child {
+    border-top-left-radius: 0; /* Remove o canto arredondado */
+}
+/* Estilo para o botão/link de "Imprimir" */
+.calc-tab-btn-link {
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #e6f7ff; /* Um azul um pouco mais vivo */
+    border: 2px solid transparent;
+    border-radius: 5px 5px 0 0;
+    font-size: 1em;
+    font-weight: 600;
+    color: #005a9c;
+    text-decoration: none;
+    margin-right: 5px;
+    margin-bottom: -2px;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+}
+.calc-tab-btn-link:hover {
+    opacity: 1;
+    background-color: #ffffff;
+    border-color: #005a9c;
+    border-bottom: 2px solid #ffffff; /* Cobre a linha principal, como a aba ativa */
+}
+/* =======================================
+   ESTILOS DO MEEN (v3.4)
+   ======================================= */
+
+/* Caixa de Leitura "FECHE OS OLHOS" */
+.meen-leitura-box {
+    font-size: 3.5em; /* "bem grande mesmo" */
+    font-weight: 700;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    margin: 15px 20px;
+    border-radius: 5px;
+}
+
+/* Caixa de Desenho (Pentágonos) */
+.meen-desenho-box {
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    margin: 15px 20px;
+    border-radius: 5px;
+}
+.meen-desenho-box img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+}
+/* =======================================
+   ESTILOS DO ASCOD (v3.5)
+   ======================================= */
+
+.ascod-subtitulo {
+    padding: 10px 20px 5px;
+    color: #005a9c; /* Azul do tema */
+    font-size: 0.9em;
+    font-weight: 700;
+    margin: 10px 0 0 0;
+    border-top: 1px dashed #eee; /* Linha separadora */
+}
+/* Remove a linha do topo do primeiro subtítulo */
+.grupo-radio .ascod-subtitulo:first-of-type {
+    margin-top: 0;
+    border-top: none;
+}
+/* =======================================
+   ESTILOS DO ASCOD (v3.5) - ACORDEÃO
+   ======================================= */
+
+/* O botão clicável (o título da categoria) */
+.ascod-accordion {
+    background-color: #f7faff; /* Fundo azul claro (como o título do grupo) */
+    color: #005a9c;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e0e7f0;
+    text-align: left;
+    outline: none;
+    font-size: 1.1em;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background-color 0.2s ease;
+    
+    /* Adiciona a barra azul lateral */
+    position: relative;
+    padding-left: 28px;
+}
+
+/* A barra lateral azul */
+.ascod-accordion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #005a9c;
+}
+
+/* Ícone de "+" (fechado) */
+.ascod-accordion::after {
+    content: '+';
+    font-size: 1.3em;
+    color: #005a9c;
+    float: right;
+    margin-left: 5px;
+}
+
+/* Ícone de "-" (aberto) */
+.ascod-accordion.active::after {
+    content: "−";
+}
+
+.ascod-accordion:hover,
+.ascod-accordion.active {
+    background-color: #f0f7ff; /* Azul um pouco mais escuro no hover/ativo */
+}
+
+/* O painel de conteúdo (que abre e fecha) */
+.ascod-panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none; /* Começa fechado */
+    overflow: hidden;
+    border: 1px solid #e0e7f0;
+    border-top: none;
+}
+
+/* Estilo para os subtítulos (A1, A2...) dentro do painel */
+.ascod-subtitulo {
+    padding: 10px 0 5px;
+    color: #005a9c;
+    font-size: 0.9em;
+    font-weight: 700;
+    margin: 10px 0 0 0;
+    border-top: 1px dashed #eee;
+}
+.ascod-panel .ascod-subtitulo:first-of-type {
+    margin-top: 15px; /* Espaço no topo do primeiro item */
+    border-top: none;
+}
+.ascod-panel .opcao-radio {
+    border-bottom: none; /* Remove bordas duplas */
+}
