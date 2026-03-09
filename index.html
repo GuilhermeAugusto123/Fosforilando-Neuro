@@ -472,5 +472,21 @@
 <script src="calculadoras/compass31.js"></script>
 <script src="calculadoras/nascet.js"></script>
 
+   <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // Se houver uma nova versão instalada, recarrega a página sozinho
+            window.location.reload();
+          }
+        });
+      });
+    });
+  }
+</script> 
 </body>
 </html>
+
