@@ -1,7 +1,7 @@
 /* ARQUIVO: sw.js */
 
 // Mudei para v2 para forçar seu celular a atualizar o cache antigo
-const CACHE_NAME = 'neurocalc-v2';
+const CACHE_NAME = 'neurocalc-v3';
 
 // Aqui só colocamos o que TEM CERTEZA que existe.
 // Se faltar um arquivo aqui, o app não instala.
@@ -35,3 +35,4 @@ self.addEventListener('fetch', (e) => {
     })
   );
 });
+
