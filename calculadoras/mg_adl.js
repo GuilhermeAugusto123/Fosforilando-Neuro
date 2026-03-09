@@ -1,158 +1,187 @@
-// Arquivo: /calculadoras/mg_adl.js (Versão 2.0 - Com Descrições)
+// Arquivo: /calculadoras/mg_adl.js
 
-/**
- * Função principal chamada pelo app.js
- */
 function mg_adl() {
-    // 1. Defina o HTML da calculadora
-    //
+    // Textos oficiais e validados da escala MG-ADL (padrão AZMed / Ensaios Clínicos)
+    const questoesMGADL = [
+        { id: "falar", titulo: "1. Falar",
+          opcoes: [
+              {v:0, l:"Normal"},
+              {v:1, l:"Fadiga intermitente ou fala arrastada / anasalada"},
+              {v:2, l:"Fadiga constante ou fala arrastada / anasalada, mas compreensível"},
+              {v:3, l:"Difícil compreensão"}
+          ]
+        },
+        { id: "mastigar", titulo: "2. Mastigar",
+          opcoes: [
+              {v:0, l:"Normal"},
+              {v:1, l:"Fadiga com alimentos sólidos"},
+              {v:2, l:"Fadiga com alimentos macios"},
+              {v:3, l:"Sonda gástrica"}
+          ]
+        },
+        { id: "engolir", titulo: "3. Engolir",
+          opcoes: [
+              {v:0, l:"Normal"},
+              {v:1, l:"Raros episódios de engasgo"},
+              {v:2, l:"Frequentes engasgos, necessitando de alterações na dieta"},
+              {v:3, l:"Sonda gástrica"}
+          ]
+        },
+        { id: "respirar", titulo: "4. Respirar",
+          opcoes: [
+              {v:0, l:"Normal"},
+              {v:1, l:"Falta de ar com esforço"},
+              {v:2, l:"Falta de ar no repouso"},
+              {v:3, l:"Necessidade de suporte ventilatório"}
+          ]
+        },
+        { id: "higiene", titulo: "5. Escovar os dentes ou pentear os cabelos",
+          opcoes: [
+              {v:0, l:"Normal"},
+              {v:1, l:"Esforço extra, sem necessidade de repouso"},
+              {v:2, l:"Necessidade de períodos de repouso"},
+              {v:3, l:"Incapaz de realizar a tarefa"}
+          ]
+        },
+        { id: "levantar", titulo: "6. Levantar-se de uma cadeira",
+          opcoes: [
+              {v:0, l:"Normal"},
+              {v:1, l:"Esforço leve, às vezes necessita usar os braços"},
+              {v:2, l:"Esforço moderado, sempre necessita usar os braços"},
+              {v:3, l:"Grave, necessita de ajuda de outra pessoa"}
+          ]
+        },
+        { id: "diplopia", titulo: "7. Visão dupla",
+          opcoes: [
+              {v:0, l:"Nenhuma"},
+              {v:1, l:"Ocorre, mas não diariamente"},
+              {v:2, l:"Diária, mas não constante"},
+              {v:3, l:"Constante"}
+          ]
+        },
+        { id: "ptose", titulo: "8. Pálpebra caída (Ptose)",
+          opcoes: [
+              {v:0, l:"Nenhuma"},
+              {v:1, l:"Ocorre, mas não diariamente"},
+              {v:2, l:"Diária, mas não constante"},
+              {v:3, l:"Constante"}
+          ]
+        }
+    ];
+
+    let htmlPerguntas = "";
+
+    // Gera o HTML das perguntas de forma dinâmica
+    questoesMGADL.forEach((q) => {
+        htmlPerguntas += `
+            <div class="grupo-radio">
+                <h4 style="font-size: 0.95rem; color: #333;">${q.titulo}</h4>
+        `;
+        
+        q.opcoes.forEach((opt, idx) => {
+            let checked = (idx === 0) ? "checked" : ""; // Inicia tudo como Normal
+            htmlPerguntas += `
+                <div class="opcao-radio">
+                    <label>
+                        <input type="radio" name="mgadl_${q.id}" value="${opt.v}" onchange="calcularMgAdl()" ${checked}>
+                        <span class="checkmark"></span>(${opt.v}) ${opt.l}
+                    </label>
+                </div>
+            `;
+        });
+        
+        htmlPerguntas += `</div>`;
+    });
+
     const htmlConteudo = `
         <div class="calculadora-layout">
             
             <div class="perguntas-coluna">
-
                 <div class="aviso-instrucao" style="margin-bottom: 20px;">
-                    <h5>MG-ADL (Atividades de Vida Diária)</h5>
+                    <h5>MG-ADL (0 a 24 pts)</h5>
                     <ul>
-                        <li>Avalie o impacto dos sintomas na última semana.</li>
+                        <li>Atividades de Vida Diária na Miastenia Gravis.</li>
+                        <li>Avalie o impacto dos sintomas na <strong>última semana</strong>.</li>
+                        <li>Valores iniciam no "0" (Normal). Altere apenas o que apresentar alteração.</li>
                     </ul>
                 </div>
+                ${htmlPerguntas}
+            </div> 
 
-                <div class="grupo-radio">
-                    <h4>1. Falar</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-1" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Normal</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-1" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Disartria leve/intermitente</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-1" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Disartria moderada/constante</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-1" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Anartria ou fala ininteligível</label></div>
-                </div>
-                
-                <div class="grupo-radio">
-                    <h4>2. Mastigar</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-2" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Normal</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-2" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Fadiga leve (ex: com carnes)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-2" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Fadiga com sólidos moles</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-2" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Dieta líquida ou GTT</label></div>
-                </div>
-                
-                <div class="grupo-radio">
-                    <h4>3. Engolir</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-3" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Normal</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-3" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Engasgos muito raros</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-3" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Engasgos frequentes (espec. líquidos)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-3" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Incapaz de engolir (saliva ou GTT)</label></div>
-                </div>
-                
-                <div class="grupo-radio">
-                    <h4>4. Respirar</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-4" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Normal</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-4" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Dispneia leve (aos esforços)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-4" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Dispneia moderada (com AVDs)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-4" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Dispneia grave (em repouso, BiPAP)</label></div>
-                </div>
-                
-                <div class="grupo-radio">
-                    <h4>5. Higiene (Escovar dentes ou pentear cabelo)</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-5" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Normal</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-5" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Fadiga leve ao final da tarefa</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-5" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Necessita pausas para descansar</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-5" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Incapaz de realizar sozinho</label></div>
-                </div>
-                
-                <div class="grupo-radio">
-                    <h4>6. Levantar-se de uma cadeira</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-6" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Normal (sem usar os braços)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-6" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Consegue, mas com alguma fraqueza</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-6" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Necessita usar os braços</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-6" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Incapaz de levantar sem ajuda</label></div>
-                </div>
-                
-                <div class="grupo-radio">
-                    <h4>7. Visão dupla</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-7" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Nenhuma</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-7" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Intermitente (não afeta AVDs)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-7" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Frequente (afeta AVDs, ex: ler)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-7" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Constante (usa oclusor)</label></div>
-                </div>
-                
-                <div class="grupo-radio">
-                    <h4>8. Pálpebras caídas (Ptose)</h4>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-8" value="0" onchange="calcularMgAdl()" checked><span class="checkmark"></span>(0) Nenhuma</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-8" value="1" onchange="calcularMgAdl()"><span class="checkmark"></span>(1) Leve/intermitente (não afeta AVDs)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-8" value="2" onchange="calcularMgAdl()"><span class="checkmark"></span>(2) Moderada/frequente (afeta AVDs)</label></div>
-                    <div class="opcao-radio"><label><input type="radio" name="mgadl-8" value="3" onchange="calcularMgAdl()"><span class="checkmark"></span>(3) Grave (cobre pupila, levanta pálpebra)</label></div>
-                </div>
-
-            </div> <div class="resultado-coluna">
-                <div class="resultado-box-fixo">
+            <div class="resultado-coluna">
+                <div class="resultado-box-fixo" id="mgadl-resultado-box">
                     <h3>Escore MG-ADL</h3>
                     
-                    <div class="placar-numero" id="mgadl-placar-numero">0</div>
-                    <div class="placar-detalhe" id="mgadl-placar-classificacao" style="font-size: 1.1em; line-height: 1.4; padding: 0 10px;">
-                        Escore Total (0-24)
+                    <div style="margin-top: 20px;">
+                        <div class="placar-numero" id="mgadl-placar-numero" style="font-size: 4rem; margin: 10px 0; color: #0056b3; line-height: 1;">0</div>
+                        <div style="font-size: 1.1em; color: #666; line-height: 1.4; padding: 0 10px; font-weight: bold;">
+                            Escore Total (0-24)
+                        </div>
                     </div>
 
-                    <h4 style="margin-top: 20px; margin-bottom: 5px; color: #333;">Resumo (p/ Prontuário):</h4>
-                    <div class="placar-copia" id="mgadl-placar-detalhe">
-                        Fal:0 Mas:0 Eng:0 Res:0 Hig:0 Lev:0 Dip:0 Pto:0
+                    <h4 style="margin-top: 30px; margin-bottom: 5px; color: #333; font-size: 0.9em;">Resumo (p/ Prontuário):</h4>
+                    <div class="placar-copia" id="mgadl-placar-detalhe" style="font-size: 0.8em; text-align: left; line-height: 1.6;">
                     </div>
-
                 </div>
-            </div> </div> `;
+            </div> 
+        </div> 
+    `;
 
-    // 2. Injete o HTML na página
     injetarConteudo(htmlConteudo);
+    adicionarEstiloCopiaMgAdl();
     
-    // 3. Adiciona estilo para a caixa de cópia (reutiliza o estilo do EDSS)
-    if (!document.getElementById('edss-style')) {
-         adicionarEstiloCopiaMgAdl();
-    }
-
-    // 4. Chame o cálculo uma vez para definir o estado inicial
+    // Anexa as questões para uso no cálculo
+    window.listaQuestoesMGADL = questoesMGADL;
     calcularMgAdl();
 }
 
-/**
- * Função de cálculo (chamada automaticamente)
- * (Esta função NÃO mudou)
- */
-function calcularMgAdl() {
-    
-    // 1. Obter os valores dos 8 itens
-    const p1 = parseInt(document.querySelector('input[name="mgadl-1"]:checked').value); // Falar
-    const p2 = parseInt(document.querySelector('input[name="mgadl-2"]:checked').value); // Mastigar
-    const p3 = parseInt(document.querySelector('input[name="mgadl-3"]:checked').value); // Engolir
-    const p4 = parseInt(document.querySelector('input[name="mgadl-4"]:checked').value); // Respirar
-    const p5 = parseInt(document.querySelector('input[name="mgadl-5"]:checked').value); // Higiene
-    const p6 = parseInt(document.querySelector('input[name="mgadl-6"]:checked').value); // Levantar
-    const p7 = parseInt(document.querySelector('input[name="mgadl-7"]:checked').value); // Diplopia
-    const p8 = parseInt(document.querySelector('input[name="mgadl-8"]:checked').value); // Ptose
-    
-    // 2. Calcular o total (Score 0-24)
-    const total = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8;
-    
-    // 3. Criar a linha de cópia
-    const detalhe = `Fal:${p1} Mas:${p2} Eng:${p3} Res:${p4} Hig:${p5} Lev:${p6} Dip:${p7} Pto:${p8}`;
+window.calcularMgAdl = function() {
+    let total = 0;
+    let detalhesFormato = [];
 
-    // 4. Exibir o resultado
-    document.getElementById('mgadl-placar-numero').innerText = total;
-    document.getElementById('mgadl-placar-detalhe').innerText = detalhe;
-    document.getElementById('mgadl-placar-classificacao').innerText = "Escore Total (0-24)";
-}
+    window.listaQuestoesMGADL.forEach(q => {
+        const selecionado = document.querySelector(`input[name="mgadl_${q.id}"]:checked`);
+        let valor = selecionado ? parseInt(selecionado.value) : 0;
+        total += valor;
+        
+        // Pega apenas o nome da atividade (ex: "Falar", "Mastigar")
+        let nomeLimpo = q.titulo.split('. ')[1]; 
+        detalhesFormato.push(`- ${nomeLimpo}: ${valor}`);
+    });
 
-/**
- * Adiciona o estilo para a caixa de cópia
- * (Caso o estilo do EDSS não tenha sido carregado)
- */
+    const resultadoTotal = document.getElementById('mgadl-placar-numero');
+    resultadoTotal.innerText = total;
+    
+    // Ajusta a cor do número baseado na pontuação (Feedback Visual)
+    if (total === 0) {
+        resultadoTotal.style.color = "#28a745"; // Verde
+    } else if (total <= 5) {
+        resultadoTotal.style.color = "#ffc107"; // Amarelo
+    } else {
+        resultadoTotal.style.color = "#dc3545"; // Vermelho
+    }
+
+    // Monta o texto bonito para o prontuário
+    const textoCopia = `
+        <strong>MG-ADL Total: ${total}/24</strong><br>
+        <div style="column-count: 2; column-gap: 10px; margin-top: 5px;">
+            ${detalhesFormato.join('<br>')}
+        </div>
+    `;
+    
+    document.getElementById('mgadl-placar-detalhe').innerHTML = textoCopia;
+};
+
 function adicionarEstiloCopiaMgAdl() {
-    if (document.getElementById('edss-style')) return;
+    if (document.getElementById('copia-style-mgadl')) return;
     const style = document.createElement('style');
-    style.id = 'edss-style'; // Reutiliza o ID
+    style.id = 'copia-style-mgadl';
     style.innerHTML = `
         .placar-copia {
-            font-size: 0.9em; font-family: 'Courier New', Courier, monospace;
-            color: #333; padding: 8px; background-color: #f8f9fa;
+            font-size: 0.85em; font-family: 'Courier New', Courier, monospace;
+            color: #333; padding: 10px; background-color: #f8f9fa;
             border: 1px dashed #ccc; border-radius: 4px;
-            line-height: 1.5; text-align: left;
+            line-height: 1.4; text-align: left;
         }
     `;
     document.head.appendChild(style);
